@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../Navbar/page'
+import Navbar from '../components/Navbar'
 import Link from 'next/link'
 
 function page() {

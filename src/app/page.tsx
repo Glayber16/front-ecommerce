@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { User, Truck} from "lucide-react"
 import Link from "next/link"
-import Navbar from "./Navbar/page";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
-    <div className="bg-[#F7F3EE] min-h-screen ">
+    <div className=" min-h-screen font-poppins font-normal bg-base-400 ">
       <Navbar/>
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <div className=" bg-cover bg-center justify-center items-center flex flex-col rounded border w-full ">

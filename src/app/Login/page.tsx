@@ -1,10 +1,10 @@
 import React from 'react'
-import Navbar from '../Navbar/page'
+import Navbar from '../components/Navbar'
 import Link from 'next/link'
 
 function page() {
   return (
-    <div className='flex flex-col min-h-screen bg-white'>
+    <div className='flex flex-col min-h-screen '>
         <Navbar/>
         <div className='flex flex-1 flex-col items-center justify-center center w-full'>
             <form  className='bg-[#e9e4e9] text-[#000000] flex flex-col rounded-xl p-5 gap-5 border-2 text-center border-black'>
