@@ -3,13 +3,16 @@ import { User, Truck} from "lucide-react"
 import Link from "next/link"
 import Navbar from "./components/Navbar";
 import Header from "./components/Header";
+import CategorySection from "./components/CategorySection";
 
 export default function Home() {
   return (
     <div className=" min-h-screen font-poppins font-normal bg-base- ">
       <Navbar/>
       <Header/>
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+      <main className="flex flex-col  row-start-2 items-center sm:items-start">
+          <CategorySection/>
+
         <div className=" bg-cover bg-center justify-center items-center flex flex-col rounded border w-full ">
           <img src="/bannerBG.png" alt="" />
           <h1>Encontre o seu tão sonhado automovel</h1>
