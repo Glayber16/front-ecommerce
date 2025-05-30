@@ -2,7 +2,7 @@ import Link from "next/link";
 function Footer() {
   return (
     <footer className="bg-base-400 w-full text-base-50 py-4 text-center font-bold">
-      <div className="flex justify-center gap-6 text-lg">
+      <div className="flex flex-wrap justify-center gap-6 text-lg">
         <Link
           href="https://github.com/Glayber16/front-ecommerce"
           target="_blank"
