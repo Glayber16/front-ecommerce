@@ -9,7 +9,7 @@ function FeaturedCars() {
 
 
   return (
-    <section className="flex flex-col w-full text-center gap-6" data-aos="fade-up">
+    <section className="flex flex-col w-full text-center gap-6 mb-6" data-aos="fade-up">
       <div>
         <h2 className="text-3xl text-base-600 font-bold">Carros em Destaque</h2>
         <span className="text-base-300">
