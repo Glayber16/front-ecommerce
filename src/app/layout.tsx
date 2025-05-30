@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./styles/globals.css";
+// import AOSInit from '@/app/components/AOSInit';
+
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -19,10 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pt-br">
+      {/* <AOSInit/> */}
       <body
         className={`${poppins.variable} antialiased`}
-      >
+       data-aos="fade-up">
         {children}
       </body>
     </html>

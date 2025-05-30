@@ -2,7 +2,7 @@ import Button from "../Button";
 
 function CategorySection() {
   return (
-    <section className="flex flex-col w-full text-center">
+    <section className="flex flex-col w-full text-center" data-aos='fade-up'>
       <div>
         <h2 className="text-3xl text-base-600 font-bold">
           Encontre por Categoria
