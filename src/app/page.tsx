@@ -1,16 +1,18 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import { User, Truck } from "lucide-react";
 import Link from "next/link";
-import { useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import Navbar from "./components/Navbar";
 import Header from "./components/Header";
 import CategorySection from "./components/CategorySection";
 import FeaturedCars from "./components/FeaturedCars";
+import Brands from "./components/Brands";
+import Footer from "./components/Footer";
 
 export default function Home() {
   useEffect(() => {
@@ -22,26 +24,15 @@ export default function Home() {
       <Navbar />
       <Header />
       <main className="flex flex-col items-center sm:items-start">
+        <Brands />
+
         <CategorySection />
+        <Brands />
 
         <FeaturedCars />
 
-        <div
-          className="bg-[#e9e4e9] flex flex-col items-center justify-center text-black w-full rounded p-5"
-          
-        >
-          <h1>Aqui temos as principais marcas do mercado:</h1>
-          <div className="flex justify-around w-full">
-            <img src="carIcons/volksIcon.png" alt="Volks logo" className="h-12 w-12" />
-            <img src="carIcons/fiatIcon.png" alt="Fiat logo" className="h-12 w-12" />
-            <img src="carIcons/nissanIcon.png" alt="Nissan logo" className="h-12 w-12" />
-            <img src="carIcons/chevroletIcon.png" alt="Chevrolet logo" className="h-12 w-12" />
-            <img src="carIcons/hyundaiIcon.png" alt="Hyundai logo" className="h-12 w-12" />
-            <img src="carIcons/toyotaIcon.png" alt="Toyota logo" className="h-12 w-12" />
-          </div>
-        </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center" />
+      <Footer/>
     </div>
   );
 }

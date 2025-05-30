@@ -17,7 +17,7 @@ function FeaturedCars() {
         </span>
       </div>
 
-      <div className="flex justify-center gap-4 text-xl mb-4">
+      <div className="flex justify-center gap-4 text-xs sm:text-xl mb-4">
         {['featured', 'popular', 'new'].map((key) => (
           <div
             key={key}
@@ -43,7 +43,6 @@ function FeaturedCars() {
             type={car.type}
             image={car.image}
             price={car.price}
-            // You can also add: data-aos="zoom-in" on the card if needed
           />
         ))}
       </div>

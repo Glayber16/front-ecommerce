@@ -24,7 +24,7 @@ export default function CardFeaturedCars({
       <img
         src={image}
         alt={name}
-        className=" duration-300  sm:h-[200px] w-auto object-contain mx-auto"
+        className=" duration-300 max-h-[200px] w-auto object-contain mx-auto"
       />
       <div className="flex justify-around items-center w-full">
         <div>

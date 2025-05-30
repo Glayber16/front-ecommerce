@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./styles/globals.css";
-// import AOSInit from '@/app/components/AOSInit';
 
 
 const poppins = Poppins({
@@ -22,7 +21,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      {/* <AOSInit/> */}
       <body
         className={`${poppins.variable} antialiased`}
        data-aos="fade-up">
