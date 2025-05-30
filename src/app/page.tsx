@@ -4,6 +4,7 @@ import Link from "next/link"
 import Navbar from "./components/Navbar";
 import Header from "./components/Header";
 import CategorySection from "./components/CategorySection";
+import FeaturedCars from "./components/FeaturedCars";
 
 export default function Home() {
   return (
@@ -13,11 +14,7 @@ export default function Home() {
       <main className="flex flex-col  row-start-2 items-center sm:items-start">
           <CategorySection/>
 
-        <div className=" bg-cover bg-center justify-center items-center flex flex-col rounded border w-full ">
-          <img src="/bannerBG.png" alt="" />
-          <h1>Encontre o seu tão sonhado automovel</h1>
-          <img src="carIcons/corollaImage.png" alt="" />
-        </div>
+        <FeaturedCars/>
 
         <div className="bg-[#e9e4e9] flex flex-col items-center justify-center text-black w-full rounded p-5">
           <h1>Aqui temos as principais marcas do mercado:</h1>
