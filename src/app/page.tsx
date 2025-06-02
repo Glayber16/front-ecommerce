@@ -1,34 +1,38 @@
+"use client";
+
 import Image from "next/image";
-import { User, Truck} from "lucide-react"
-import Link from "next/link"
+import { User, Truck } from "lucide-react";
+import Link from "next/link";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import Navbar from "./components/Navbar";
+import Header from "./components/Header";
+import CategorySection from "./components/CategorySection";
+import FeaturedCars from "./components/FeaturedCars";
+import Brands from "./components/Brands";
+import Footer from "./components/Footer";
 
 export default function Home() {
-  return (
-    <div className=" min-h-screen font-poppins font-normal bg-base-400 ">
-      <Navbar/>
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <div className=" bg-cover bg-center justify-center items-center flex flex-col rounded border w-full ">
-          <img src="/bannerBG.png" alt="" />
-          <h1>Encontre o seu tão sonhado automovel</h1>
-          <img src="corollaImage.png" alt="" />
-        </div>
+  useEffect(() => {
+    AOS.init({ duration: 700, once: false });
+  }, []);
 
-        <div className="bg-[#e9e4e9] flex flex-col items-center justify-center text-black w-full rounded p-5">
-          <h1>Aqui temos as principais marcas do mercado:</h1>
-          <div className="flex justify-around w-full">
-            <img src="/volksIcon.png" alt="Volks logo" className="h-12 w-12"/>
-            <img src="/fiatIcon.png" alt="Fiat logo" className="h-12 w-12"/>
-            <img src="/nissanIcon.png" alt="Nissan logo" className="h-12 w-12"/>
-            <img src="/chevroletIcon.png" alt="Chevrolet logo" className="h-12 w-12"/>
-            <img src="/hyundaiIcon.png" alt="Hyundai logo" className="h-12 w-12"/>
-            <img src="/toyotaIcon.png" alt="Toyota logo" className="h-12 w-12"/>
-          </div>
-        </div>
+  return (
+    <div className="min-h-screen font-poppins font-normal bg-base-">
+      <Navbar />
+      <Header />
+      <main className="flex flex-col items-center sm:items-start">
+        <Brands />
+
+        <CategorySection />
+        <Brands />
+
+        <FeaturedCars />
+
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-       
-      </footer>
+      <Footer/>
     </div>
   );
 }
