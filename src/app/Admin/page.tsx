@@ -1,20 +1,52 @@
 'use client'
-
-import { useState } from 'react'
-import AdicionarItens from '../components/Adm/AdicionarItens'
-import ListarItens from '../components/Adm/ListarItens'
-import Pedidos from '../components/Adm/Pedidos'
+import api from '../services/api';
+import router from 'next/router';
+import { useEffect, useState } from 'react'
+import AdicionarItens from '../components/Admin/AdicionarItens'
+import ListarItens from '../components/Admin/ListarItens'
+import Pedidos from '../components/Admin/Pedidos'
 import Navbar from '../components/Navbar'
+
 
 import { Plus, ListChecks, PackageCheck } from 'lucide-react'
 
 
 export default function AdminPage() {
   const [abaAtiva, setAbaAtiva] = useState<'adicionar' | 'listar' | 'pedidos'>('adicionar')
+  const [login, setLogin] = useState(false)
+  /*
+  useEffect(()=>{verificarOuLogarLocal()},[])
+async function verificarOuLogarLocal() {
+  // Verifica se já há dados do usuário no localStorage
+  const storedUser = localStorage.getItem('user');
+
+  if (storedUser) {
+    try {
+      const user = JSON.parse(storedUser);
+      console.log('Usuário já logado:', user);
+      setLogin(true)
+      return user;
+    } catch {
+      localStorage.removeItem('user'); // Em caso de erro no parse
+    }
+  }
+
+  // Se não houver usuário, tenta login automático
+  try {
+      window.location.href = '/Login';
+  } catch (err: any) {
+    alert('Erro no login automático: ' + (err.response?.data?.message || 'verifique suas credenciais'));
+    console.error(err);
+    return null;
+  }
+}
+*/
 
   return (
+    
     <div className="flex h-screen">
-      {/* pt-16 = 64px para compensar a navbar fixa */}
+      {login && <>
+              {/* pt-16 = 64px para compensar a navbar fixa */}
       <Navbar/>
        <div className="pt-16 flex h-screen">
       {/* Menu lateral */}
@@ -60,6 +92,13 @@ export default function AdminPage() {
         {abaAtiva === 'pedidos' && <Pedidos />}
       </div>
     </div>
+      </>
+
+      }
+      {!login && <>
+      realize login para utilizar essa função
+      </>}
+
     </div>
   )
 }
