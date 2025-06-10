@@ -7,6 +7,7 @@ type Button = {
   href?: string;
   onClick?: () => void;
   className?: string;
+   type?: 'button' | 'submit' | 'reset';
 };
 
 export default function Button({
