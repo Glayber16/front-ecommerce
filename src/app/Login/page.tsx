@@ -21,14 +21,28 @@ export default function Page() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    try {
-      const mensagem = await loginUsuario(form);
-      alert("Login realizado");
-    } catch (error: any) {
-      alert(error.message);
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault(); 
+
+  try {
+    const usuario = await loginUsuario(form); 
+
+    sessionStorage.setItem("usuario", JSON.stringify(usuario));
+
+    alert("Login realizado com sucesso!");
+
+  
+    if (usuario.adm) {
+      window.location.href = "/HomeLoginAdmin"; 
+    } else {
+      window.location.href = "/HomeLoginCliente"; 
     }
-  };
+
+  } catch (error: any) {
+    alert(error.response?.data || "Erro ao fazer login.");
+  }
+};
+
 
 
   return (
