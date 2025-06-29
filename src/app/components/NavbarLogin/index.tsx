@@ -10,7 +10,11 @@ function NavbarLogin() {
             <Link className='hover:text-brand-300 duration-300' href="/HomeLogin"> Inicio </Link>
             <Link className='hover:text-brand-300 duration-300' href="/"> Carros </Link>           
             <h1 className='hover:text-brand-300 duration-300'>  Nome Pessoa</h1>
+<<<<<<< HEAD
+            <Link className='hover:text-brand-300 duration-300' href="/Edit"> <User></User> </Link>
+=======
             <Link className='hover:text-brand-300 duration-300' href="/EditarDados"> <User></User> </Link>
+>>>>>>> 520bf66d637a99407df8cb2dddfad41ff6a085d4
             <Link className='hover:text-brand-300 duration-300' href="/Login"> <Truck></Truck></Link>          
         </div>
       </nav>
