@@ -59,8 +59,6 @@ export default function Page() {
               onChange={handleChange}
               placeholder="Login"
               required
-              value={login}
-              onChange={(e) => setLogin(e.target.value)}
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-300"
             />
             <input
@@ -70,11 +68,9 @@ export default function Page() {
               type="password"
               placeholder="Senha"
               required
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-300"
             />
-            <Button type="submit" className="bg-base-400 hover:bg-brand-300 hover:text-black text-white font-medium py-2 rounded-lg">
+            <Button type="submit" className="bg-base-400  hover:bg-brand-300 hover:text-black text-white font-medium py-2 rounded-lg">
               Entrar
             </Button>
           </form>
