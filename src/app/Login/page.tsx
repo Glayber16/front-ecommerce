@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Link from 'next/link';
 import Button from '../components/Button';
-<<<<<<< HEAD
 import { loginUsuario, LoginUsuario } from "@/services/UsuarioServices";
 
 export default function Page() {
@@ -46,39 +45,6 @@ export default function Page() {
 
 
 
-=======
-import { useRouter } from 'next/navigation';
-import api from '../services/api'; // axios configurado
-
-export default function Page() {
-  const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const response = await api.post('/login', { email, senha });
-
-      const user = response.data.user;
-
-      // Armazenar dados no localStorage
-      localStorage.setItem('user', JSON.stringify(user));
-
-      // Redirecionar com base no tipo de usuário
-      if (user.isAdmin) {
-        router.push('/admin');
-      } else {
-        router.push('/');
-      }
-    } catch (err: any) {
-      alert('Erro no login: ' + (err.response?.data?.message || 'verifique suas credenciais'));
-      console.error(err);
-    }
-  };
-
->>>>>>> d19d20aa9fd543476edec8f3f0287b51e678b62c
   return (
     <div className="flex font-poppins flex-col min-h-screen bg-[#fffdff]">
       <Navbar />
@@ -86,22 +52,15 @@ export default function Page() {
         <div className="w-full max-w-md bg-white text-black rounded-2xl shadow-xl p-8 border border-gray-200">
           <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
           
-<<<<<<< HEAD
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <input
               name="login"
               value={form.login}
               onChange={handleChange}
               placeholder="Login"
-=======
-          <form onSubmit={handleLogin} className="flex flex-col gap-4">
-            <input
-              type="email"
-              placeholder="Email"
->>>>>>> d19d20aa9fd543476edec8f3f0287b51e678b62c
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
               className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-300"
             />
             <input
