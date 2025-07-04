@@ -8,7 +8,7 @@ import SearchBar from '../components/SearchBar';
 export default function Page() {
   return (
     <div className="min-h-screen bg-[#fffdff] font-poppins">
-      <NavbarLogin />
+    
 
       <div className="flex flex-col items-start sm:items-center py-20 px-4 sm:px-8 max-w-6xl mx-auto gap-10">
 

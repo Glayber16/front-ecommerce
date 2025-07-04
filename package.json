@@ -10,11 +10,7 @@
   },
   "dependencies": {
     "aos": "^2.3.4",
-<<<<<<< HEAD
     "axios": "^1.10.0",
-=======
-    "axios": "^1.9.0",
->>>>>>> d19d20aa9fd543476edec8f3f0287b51e678b62c
     "clsx": "^2.1.1",
     "lucide-react": "^0.511.0",
     "next": "15.3.1",
