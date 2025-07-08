@@ -33,7 +33,7 @@ export default function Page() {
 
   
     if (usuario.adm) {
-      window.location.href = "/HomeLoginAdmin"; 
+      window.location.href = "/Admin"; 
     } else {
       window.location.href = "/HomeLoginCliente"; 
     }

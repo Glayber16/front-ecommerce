@@ -1,104 +1,80 @@
-'use client'
-import api from '../services/api';
-import router from 'next/router';
-import { useEffect, useState } from 'react'
-import AdicionarItens from '../components/Admin/AdicionarItens'
-import ListarItens from '../components/Admin/ListarItens'
-import Pedidos from '../components/Admin/Pedidos'
-import Navbar from '../components/Navbar'
+'use client';
 
+import React, { useEffect, useState } from 'react';
+import NavbarLogin from '../components/NavbarLogin';
+import { listarCategorias, Categoria } from "@/services/CategoriaServices";
+import CategoriaForm from '../components/Admin/CategoriaForm';
+import CategoriaList from '../components/Admin/CategoriaList';
 
-import { Plus, ListChecks, PackageCheck } from 'lucide-react'
-
+import AdicionarCarro from '../components/Admin/AdicionarItens';
+import ListaCarros from '../components/Admin/ListarItens';
 
 export default function AdminPage() {
-  const [abaAtiva, setAbaAtiva] = useState<'adicionar' | 'listar' | 'pedidos'>('adicionar')
-  const [login, setLogin] = useState(false)
-  /*
-  useEffect(()=>{verificarOuLogarLocal()},[])
-async function verificarOuLogarLocal() {
-  // Verifica se já há dados do usuário no localStorage
-  const storedUser = localStorage.getItem('user');
+  const [abaSelecionada, setAbaSelecionada] = useState<'categoria' | 'carro'>('categoria');
 
-  if (storedUser) {
+  const [categorias, setCategorias] = useState<Categoria[]>([]);
+
+  const carregarCategorias = async () => {
     try {
-      const user = JSON.parse(storedUser);
-      console.log('Usuário já logado:', user);
-      setLogin(true)
-      return user;
-    } catch {
-      localStorage.removeItem('user'); // Em caso de erro no parse
+      const lista = await listarCategorias();
+      setCategorias(lista);
+    } catch (error) {
+      console.error("Erro ao carregar categorias:", error);
+      alert("Erro ao carregar categorias. Por favor, tente novamente.");
     }
-  }
+  };
 
-  // Se não houver usuário, tenta login automático
-  try {
-      window.location.href = '/Login';
-  } catch (err: any) {
-    alert('Erro no login automático: ' + (err.response?.data?.message || 'verifique suas credenciais'));
-    console.error(err);
-    return null;
-  }
-}
-*/
+  useEffect(() => {
+    if (abaSelecionada === 'categoria') {
+      carregarCategorias();
+    }
+  }, [abaSelecionada]);
+
 
   return (
-    
-    <div className="flex h-screen">
-      {login && <>
-              {/* pt-16 = 64px para compensar a navbar fixa */}
-      <Navbar/>
-       <div className="pt-16 flex h-screen">
-      {/* Menu lateral */}
-      <div className="w-64 border-r p-4 space-y-4">
-        <h1 className="text-2xl font-bold text-red-600">Nome.</h1>
-        <p className="text-sm text-gray-500 mb-6">Admin Panel</p>
+    <div className="min-h-screen bg-[#fffdff] font-poppins flex flex-col">
+      <NavbarLogin />
 
-        <button
-          onClick={() => setAbaAtiva('adicionar')}
-          className={`flex items-center gap-2 p-2 w-full text-left rounded ${
-            abaAtiva === 'adicionar' ? 'bg-orange-100 text-red-600' : ''
-          }`}
-        >
-          <Plus size={18} />
-          Add Items
-        </button>
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
+        <div className="w-full max-w-3xl">
+          <h2 className="text-2xl font-semibold mb-6 text-center">Gerenciar</h2>
 
-        <button
-          onClick={() => setAbaAtiva('listar')}
-          className={`flex items-center gap-2 p-2 w-full text-left rounded ${
-            abaAtiva === 'listar' ? 'bg-orange-100 text-red-600' : ''
-          }`}
-        >
-          <ListChecks size={18} />
-          List Items
-        </button>
+          {/* Seletor de aba */}
+          <div className="flex justify-center mb-6 space-x-4">
+            <button
+              onClick={() => setAbaSelecionada('categoria')}
+              className={`px-4 py-2 rounded ${
+                abaSelecionada === 'categoria' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+              }`}
+            >
+              Categorias
+            </button>
+            <button
+              onClick={() => setAbaSelecionada('carro')}
+              className={`px-4 py-2 rounded ${
+                abaSelecionada === 'carro' ? 'bg-blue-600 text-white' : 'bg-gray-200'
+              }`}
+            >
+              Carros
+            </button>
+          </div>
 
-        <button
-          onClick={() => setAbaAtiva('pedidos')}
-          className={`flex items-center gap-2 p-2 w-full text-left rounded ${
-            abaAtiva === 'pedidos' ? 'bg-orange-100 text-red-600' : ''
-          }`}
-        >
-          <PackageCheck size={18} />
-          Orders
-        </button>
-      </div>
+          {/* Mostrar componentes dependendo da aba */}
+          {abaSelecionada === 'categoria' && (
+            <>
+              <CategoriaForm onSuccess={carregarCategorias} />
+              <CategoriaList categorias={categorias} onDelete={carregarCategorias} />
+            </>
+          )}
 
-      {/* Conteúdo principal */}
-      <div className="flex-1 p-8">
-        {abaAtiva === 'adicionar' && <AdicionarItens />}
-        {abaAtiva === 'listar' && <ListarItens />}
-        {abaAtiva === 'pedidos' && <Pedidos />}
+          {abaSelecionada === 'carro' && (
+            <>
+              <AdicionarCarro onCarroAdicionado={() => {}} />
+              <ListaCarros onAtualizarLista={() => {}} />
+            </>
+          )}
+        </div>
       </div>
     </div>
-      </>
-
-      }
-      {!login && <>
-      realize login para utilizar essa função
-      </>}
-
-    </div>
-  )
+  );
 }

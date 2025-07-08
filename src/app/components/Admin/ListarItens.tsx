@@ -1,63 +1,65 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { listarItens } from '@/lib/fakeAPI';
+import { useEffect, useState } from 'react'
+import { listarCarros, deletarCarro, Carro } from '@/services/CarroServices'
 
-export default function ListarItens() {
-  const [itens, setItens] = useState<string[]>([]);
-
-  useEffect(() => {
-    const resultado = listarItens();
-    setItens(resultado);
-  }, []);
-
-  const handleDelete = (nome: string) => {
-    setItens(prev => prev.filter(item => item !== nome));
-  };
-
-  return (
-    <div className="overflow-x-auto rounded-lg shadow-lg bg-white">
-      <h1 className="text-2xl font-bold mb-4">Lista de Itens</h1>
-      <table className="min-w-full table-auto text-sm text-left text-gray-600">
-        <thead className="bg-orange-500 text-white uppercase">
-          <tr>
-            <th className="px-6 py-3">Nome</th>
-            <th className="px-6 py-3 text-center">Ação</th>
-            <th className="px-6 py-3">Nome</th>
-            <th className="px-6 py-3 text-center">Ação</th>
-            <th className="px-6 py-3">Nome</th>
-          </tr>
-        </thead>
-        <tbody>
-          {itens.map((item, index) => (
-            <tr
-              key={index}
-              className="border-b hover:bg-orange-50 transition-colors"
-            >
-              <td className="px-6 py-4 font-medium text-gray-800">{item}</td>
-              <td className="px-6 py-4 text-center">
-                <button
-                  onClick={() => handleDelete(item)}
-                  className="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded font-bold"
-                >
-                  X
-                </button>
-              </td>
-            </tr>
-          ))}
-          {itens.length === 0 && (
-            <tr>
-              <td
-                colSpan={2}
-                className="px-6 py-4 text-center text-gray-400 italic"
-              >
-                Nenhum item encontrado
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
-  );
+interface Props {
+  onAtualizarLista: () => void
 }
 
+export default function ListaCarros({ onAtualizarLista }: Props) {
+  const [carros, setCarros] = useState<Carro[]>([])
+
+  const carregarCarros = async () => {
+    try {
+      const lista = await listarCarros()
+      setCarros(lista)
+    } catch {
+      alert('Erro ao carregar carros.')
+    }
+  }
+
+  useEffect(() => {
+    carregarCarros()
+  }, [])
+
+  const deletar = async (id?: number) => {
+    if (!id) return
+    if (!confirm('Deseja realmente deletar este carro?')) return
+
+    try {
+      await deletarCarro(id)
+      alert('Carro deletado com sucesso!')
+      carregarCarros()
+      onAtualizarLista()
+    } catch {
+      alert('Erro ao deletar carro.')
+    }
+  }
+
+  return (
+    <div>
+      <h2 className="text-xl font-semibold mb-4">Lista de Carros</h2>
+      {carros.length === 0 ? (
+        <p>Nenhum carro cadastrado.</p>
+      ) : (
+        <ul className="list-disc pl-6">
+          {carros.map((carro) => (
+            <li key={carro.id} className="mb-3">
+              <div>
+                <strong>{carro.modelo}</strong> - {carro.marca} - R$ {carro.preco.toFixed(2)} - Quantidade: {carro.quantidade}
+              </div>
+              <img src={carro.foto} alt={carro.modelo} className="w-32 h-20 object-cover rounded mt-1 mb-1" />
+              <button
+                onClick={() => deletar(carro.id)}
+                className="bg-red-600 text-white px-3 py-1 rounded"
+              >
+                Deletar
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}

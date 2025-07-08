@@ -1,118 +1,102 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { adicionarItem, listarItens } from '@/lib/fakeAPI'
+import { useState } from 'react'
+import { cadastrarCarro, Carro } from '@/services/CarroServices'
 
-export default function AdicionarItens() {
-  const [novoItem, setNovoItem] = useState('')
-  const [itens, setItens] = useState<string[]>([])
-  const [imagem, setImagem] = useState<File | null>(null)
-  const [preview, setPreview] = useState<string | null>(null)
-  const [dragAtivo, setDragAtivo] = useState(false)
 
-  useEffect(() => {
-    setItens(listarItens())
-  }, [])
+interface Props {
+  onCarroAdicionado: () => void
+}
 
-  const adicionar = () => {
-    if (!novoItem.trim()) return
-    console.log('Imagem selecionada:', imagem)
-    adicionarItem(novoItem.trim())
-    setItens(listarItens())
-    setNovoItem('')
-    setImagem(null)
-    setPreview(null)
+export default function AdicionarCarro({ onCarroAdicionado }: Props) {
+  const [modelo, setModelo] = useState('')
+  const [marca, setMarca] = useState('')
+  const [preco, setPreco] = useState('')
+  const [quantidade, setQuantidade] = useState('')
+  const [foto, setFoto] = useState('')
+
+  const limparFormulario = () => {
+    setModelo('')
+    setMarca('')
+    setPreco('')
+    setQuantidade('')
+    setFoto('')
   }
 
-  const handleImagemChange = (file: File | null) => {
-    if (file) {
-      setImagem(file)
-      setPreview(URL.createObjectURL(file))
+  const adicionar = async () => {
+    if (!modelo || !marca || !preco || !quantidade || !foto) {
+      alert('Preencha todos os campos.')
+      return
     }
-  }
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    setDragAtivo(false)
-
-    const file = e.dataTransfer.files[0]
-    if (file && file.type.startsWith('image/')) {
-      handleImagemChange(file)
+    const novoCarro: Carro = {
+      modelo,
+      marca,
+      preco: Number(preco),
+      quantidade: Number(quantidade),
+      foto,
+      categoria: { id: 1, descricao: "Categoria padrão" }
     }
-  }
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    setDragAtivo(true)
-  }
-
-  const handleDragLeave = () => {
-    setDragAtivo(false)
-  }
-
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file && file.type.startsWith('image/')) {
-      handleImagemChange(file)
+    try {
+      await cadastrarCarro(novoCarro)
+      alert('Carro adicionado com sucesso!')
+      limparFormulario()
+      onCarroAdicionado()
+    } catch {
+      alert('Erro ao adicionar carro.')
     }
   }
 
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">Adicionar Itens</h2>
-
-      {/* Área de Drag and Drop */}
-      <div
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onClick={() => document.getElementById('upload')?.click()}
-        className={`border-2 border-dashed p-6 text-center rounded cursor-pointer mb-4 transition ${
-          dragAtivo ? 'border-blue-600 bg-blue-50' : 'border-gray-400'
-        }`}
-      >
-        {preview ? (
-          <img
-            src={preview}
-            alt="Preview"
-            className="mx-auto w-32 h-32 object-cover rounded"
-          />
-        ) : (
-          <p className="text-gray-600">Arraste uma imagem aqui ou clique para selecionar</p>
-        )}
-        <input
-          type="file"
-          id="upload"
-          accept="image/*"
-          className="hidden"
-          onChange={handleFileSelect}
-        />
-      </div>
+    <div className="mb-6">
+      <h2 className="text-xl font-semibold mb-4">Adicionar Carro</h2>
 
       <input
         type="text"
-        placeholder="Nome do novo item"
-        value={novoItem}
-        onChange={(e) => setNovoItem(e.target.value)}
+        placeholder="Modelo"
+        value={modelo}
+        onChange={(e) => setModelo(e.target.value)}
         className="border p-2 rounded w-full mb-3"
       />
+      <input
+        type="text"
+        placeholder="Marca"
+        value={marca}
+        onChange={(e) => setMarca(e.target.value)}
+        className="border p-2 rounded w-full mb-3"
+      />
+      <input
+        type="number"
+        placeholder="Preço"
+        value={preco}
+        onChange={(e) => setPreco(e.target.value)}
+        className="border p-2 rounded w-full mb-3"
+        min="0"
+        step="0.01"
+      />
+      <input
+        type="number"
+        placeholder="Quantidade"
+        value={quantidade}
+        onChange={(e) => setQuantidade(e.target.value)}
+        className="border p-2 rounded w-full mb-3"
+        min="0"
+      />
+      <input
+        type="text"
+        placeholder="URL da foto"
+        value={foto}
+        onChange={(e) => setFoto(e.target.value)}
+        className="border p-2 rounded w-full mb-3"
+      />
+
       <button
         onClick={adicionar}
         className="bg-green-600 text-white px-4 py-2 rounded"
       >
-        Adicionar
+        Adicionar Carro
       </button>
-
-      {itens.length > 0 && (
-        <div className="mt-4">
-          <h3 className="font-semibold">Itens adicionados:</h3>
-          <ul className="list-disc pl-6">
-            {itens.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   )
 }
