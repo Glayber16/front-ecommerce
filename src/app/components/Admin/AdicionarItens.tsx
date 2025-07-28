@@ -1,102 +1,141 @@
-'use client'
+import React, { useEffect, useState } from "react";
+import { Categoria } from "@/services/CategoriaServices";
+import { listarCategorias } from "@/services/CategoriaServices";
 
-import { useState } from 'react'
-import { cadastrarCarro, Carro } from '@/services/CarroServices'
-
-
-interface Props {
-  onCarroAdicionado: () => void
+interface NovoCarro {
+  modelo: string;
+  marca: string;
+  preco: number;
+  quantidade: number;
+  foto: string;
+  categoria: { id: number };
 }
 
-export default function AdicionarCarro({ onCarroAdicionado }: Props) {
-  const [modelo, setModelo] = useState('')
-  const [marca, setMarca] = useState('')
-  const [preco, setPreco] = useState('')
-  const [quantidade, setQuantidade] = useState('')
-  const [foto, setFoto] = useState('')
+interface CadastroCarroProps {
+  onCarroAdicionado: (novoCarro: NovoCarro) => void; 
+}
 
-  const limparFormulario = () => {
-    setModelo('')
-    setMarca('')
-    setPreco('')
-    setQuantidade('')
-    setFoto('')
-  }
+export default function CadastroCarro({ onCarroAdicionado }: CadastroCarroProps) {
+  const [categorias, setCategorias] = useState<Categoria[]>([]);
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState<number | "">("");
 
-  const adicionar = async () => {
-    if (!modelo || !marca || !preco || !quantidade || !foto) {
-      alert('Preencha todos os campos.')
-      return
+  const [modelo, setModelo] = useState("");
+  const [marca, setMarca] = useState("");
+  const [preco, setPreco] = useState("");
+  const [quantidade, setQuantidade] = useState("");
+  const [foto, setFoto] = useState("");
+
+  useEffect(() => {
+    async function carregarCategorias() {
+      try {
+        const lista = await listarCategorias();
+        setCategorias(lista);
+        if (lista.length > 0) setCategoriaSelecionada(lista[0].id ?? "");
+      } catch (error) {
+        console.error("Erro ao carregar categorias", error);
+      }
+    }
+    carregarCategorias();
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!categoriaSelecionada) {
+      alert("Selecione uma categoria");
+      return;
     }
 
-    const novoCarro: Carro = {
-      modelo,
-      marca,
+    const novoCarro: NovoCarro = {
+      modelo: modelo.trim(),
+      marca: marca.trim(),
       preco: Number(preco),
       quantidade: Number(quantidade),
-      foto,
-      categoria: { id: 1, descricao: "Categoria padrão" }
-    }
+      foto: foto.trim(),
+      categoria: { id: Number(categoriaSelecionada) }
+    };
 
-    try {
-      await cadastrarCarro(novoCarro)
-      alert('Carro adicionado com sucesso!')
-      limparFormulario()
-      onCarroAdicionado()
-    } catch {
-      alert('Erro ao adicionar carro.')
-    }
-  }
+    
+    onCarroAdicionado(novoCarro);
+
+  
+    setModelo("");
+    setMarca("");
+    setPreco("");
+    setQuantidade("");
+    setFoto("");
+    setCategoriaSelecionada(categorias.length > 0 ? categorias[0].id ?? "" : "");
+  };
 
   return (
-    <div className="mb-6">
-      <h2 className="text-xl font-semibold mb-4">Adicionar Carro</h2>
-
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4">
       <input
-        type="text"
         placeholder="Modelo"
         value={modelo}
-        onChange={(e) => setModelo(e.target.value)}
-        className="border p-2 rounded w-full mb-3"
+        onChange={e => setModelo(e.target.value)}
+        className="border p-2 mb-2 w-full"
+        required
       />
+
       <input
-        type="text"
         placeholder="Marca"
         value={marca}
-        onChange={(e) => setMarca(e.target.value)}
-        className="border p-2 rounded w-full mb-3"
+        onChange={e => setMarca(e.target.value)}
+        className="border p-2 mb-2 w-full"
+        required
       />
+
       <input
         type="number"
         placeholder="Preço"
         value={preco}
-        onChange={(e) => setPreco(e.target.value)}
-        className="border p-2 rounded w-full mb-3"
+        onChange={e => setPreco(e.target.value)}
+        className="border p-2 mb-2 w-full"
         min="0"
         step="0.01"
+        required
       />
+
       <input
         type="number"
         placeholder="Quantidade"
         value={quantidade}
-        onChange={(e) => setQuantidade(e.target.value)}
-        className="border p-2 rounded w-full mb-3"
+        onChange={e => setQuantidade(e.target.value)}
+        className="border p-2 mb-2 w-full"
         min="0"
-      />
-      <input
-        type="text"
-        placeholder="URL da foto"
-        value={foto}
-        onChange={(e) => setFoto(e.target.value)}
-        className="border p-2 rounded w-full mb-3"
+        required
       />
 
-      <button
-        onClick={adicionar}
-        className="bg-green-600 text-white px-4 py-2 rounded"
+      <input
+        placeholder="URL da foto"
+        value={foto}
+        onChange={e => setFoto(e.target.value)}
+        className="border p-2 mb-2 w-full"
+        required
+      />
+
+      <select
+        value={categoriaSelecionada}
+        onChange={e => setCategoriaSelecionada(e.target.value === "" ? "" : Number(e.target.value))}
+        className="border p-2 mb-4 w-full"
+        required
       >
-        Adicionar Carro
+        <option value="" disabled>
+          Selecione uma categoria
+        </option>
+        {categorias.map((cat) => (
+          <option key={cat.id} value={cat.id}>
+            {cat.descricao}
+          </option>
+        ))}
+      </select>
+
+      <button
+        type="submit"
+        className="bg-blue-600 text-white p-2 rounded w-full hover:bg-blue-700 transition"
+      >
+        Cadastrar Carro
       </button>
-    </div>
-  )
+    </form>
+  );
 }

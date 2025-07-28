@@ -39,7 +39,7 @@ export default function AdminPage() {
         <div className="w-full max-w-3xl">
           <h2 className="text-2xl font-semibold mb-6 text-center">Gerenciar</h2>
 
-          {/* Seletor de aba */}
+          
           <div className="flex justify-center mb-6 space-x-4">
             <button
               onClick={() => setAbaSelecionada('categoria')}
@@ -59,7 +59,7 @@ export default function AdminPage() {
             </button>
           </div>
 
-          {/* Mostrar componentes dependendo da aba */}
+          
           {abaSelecionada === 'categoria' && (
             <>
               <CategoriaForm onSuccess={carregarCategorias} />
