@@ -1,35 +1,22 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { listarVendas, Venda} from '@/services/VendaServices' // ajusta o caminho conforme seu projeto
+import { listarVendas, Venda} from '@/services/VendaServices' 
 
 interface Props {
     vendas: Venda[];
   onAtualizarLista: () => void
 }
 
-export default function VendaList({ onAtualizarLista }: Props) {
-  const [vendas, setVendas] = useState<Venda[]>([])
+interface Props {
+  vendas: Venda[];
+  onAtualizarLista: () => void;
+}
 
-  const carregarVendas = async () => {
-    try {
-      const lista = await listarVendas()
-      setVendas(lista)
-    } catch {
-      alert('Erro ao carregar vendas.')
-    }
-  }
-
-  useEffect(() => {
-    carregarVendas()
-  }, [])
-
-  
-
+export default function VendaList({ vendas, onAtualizarLista }: Props) {
   return (
     <div>
       <h2 className="text-xl font-semibold mb-4">Lista de Vendas</h2>
-
       {vendas.length === 0 ? (
         <p>Nenhuma venda registrada.</p>
       ) : (
@@ -39,7 +26,6 @@ export default function VendaList({ onAtualizarLista }: Props) {
               <div>
                 <strong>Venda #{venda.id}</strong> - Data: {venda.data?.substring(0, 10)} - Usuário: {venda.usuario?.nome || venda.usuarioId}
               </div>
-
               <div className="mt-2">
                 <strong>Itens:</strong>
                 <ul className="pl-4 list-decimal">
@@ -50,8 +36,6 @@ export default function VendaList({ onAtualizarLista }: Props) {
                   ))}
                 </ul>
               </div>
-
-             
             </li>
           ))}
         </ul>

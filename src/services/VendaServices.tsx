@@ -40,6 +40,7 @@ export const listarVendas = async (): Promise<Venda[]> => {
 
 
 export const listarVendasPorUsuario = async (usuarioId: number): Promise<Venda[]> => {
-  const response = await api.get(`/venda/usuario/${usuarioId}`);
+  const response = await api.get(`/Venda/usuario/${usuarioId}`);
   return response.data;
 };
+
