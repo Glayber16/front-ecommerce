@@ -25,7 +25,7 @@ function NavbarLogin() {
     <div>
       <nav className="bg-base-400 border-b fixed w-full z-10 text-md">
         <div className="flex flex-row justify-around items-center py-5 text-base-50 gap-2">
-          <Link className="hover:text-brand-300 duration-300" href="/HomeLogin">
+          <Link className="hover:text-brand-300 duration-300" href="/Admin">
             Início
           </Link>
           <Link className="hover:text-brand-300 duration-300" href="/">

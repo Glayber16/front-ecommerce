@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Categoria } from "@/services/CategoriaServices";
 import { listarCategorias } from "@/services/CategoriaServices";
-
-interface NovoCarro {
-  modelo: string;
-  marca: string;
-  preco: number;
-  quantidade: number;
-  foto: string;
-  categoria: { id: number };
-}
+import { cadastrarCarro } from "@/services/CarroServices";
 
 interface CadastroCarroProps {
-  onCarroAdicionado: (novoCarro: NovoCarro) => void; 
+  onCarroAdicionado: () => void;
 }
 
 export default function CadastroCarro({ onCarroAdicionado }: CadastroCarroProps) {
@@ -23,7 +15,7 @@ export default function CadastroCarro({ onCarroAdicionado }: CadastroCarroProps)
   const [marca, setMarca] = useState("");
   const [preco, setPreco] = useState("");
   const [quantidade, setQuantidade] = useState("");
-  const [foto, setFoto] = useState("");
+  const [fotoArquivo, setFotoArquivo] = useState<File | null>(null);
 
   useEffect(() => {
     async function carregarCategorias() {
@@ -38,33 +30,38 @@ export default function CadastroCarro({ onCarroAdicionado }: CadastroCarroProps)
     carregarCategorias();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!categoriaSelecionada) {
-      alert("Selecione uma categoria");
+    if (!categoriaSelecionada || !fotoArquivo) {
+      alert("Preencha todos os campos e selecione uma imagem.");
       return;
     }
 
-    const novoCarro: NovoCarro = {
+    const carroFormData = {
       modelo: modelo.trim(),
       marca: marca.trim(),
       preco: Number(preco),
       quantidade: Number(quantidade),
-      foto: foto.trim(),
-      categoria: { id: Number(categoriaSelecionada) }
+      categoriaId: Number(categoriaSelecionada),
+      fotoArquivo: fotoArquivo
     };
 
-    
-    onCarroAdicionado(novoCarro);
+    try {
+      await cadastrarCarro(carroFormData);
+      onCarroAdicionado();
 
-  
-    setModelo("");
-    setMarca("");
-    setPreco("");
-    setQuantidade("");
-    setFoto("");
-    setCategoriaSelecionada(categorias.length > 0 ? categorias[0].id ?? "" : "");
+      // Limpar formulário
+      setModelo("");
+      setMarca("");
+      setPreco("");
+      setQuantidade("");
+      setFotoArquivo(null);
+      setCategoriaSelecionada(categorias.length > 0 ? categorias[0].id ?? "" : "");
+    } catch (error) {
+      console.error("Erro ao cadastrar carro:", error);
+      alert("Erro ao cadastrar carro.");
+    }
   };
 
   return (
@@ -107,9 +104,13 @@ export default function CadastroCarro({ onCarroAdicionado }: CadastroCarroProps)
       />
 
       <input
-        placeholder="URL da foto"
-        value={foto}
-        onChange={e => setFoto(e.target.value)}
+        type="file"
+        accept="image/*"
+        onChange={(e) => {
+          if (e.target.files && e.target.files.length > 0) {
+            setFotoArquivo(e.target.files[0]);
+          }
+        }}
         className="border p-2 mb-2 w-full"
         required
       />

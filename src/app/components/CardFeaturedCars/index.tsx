@@ -1,25 +1,27 @@
 
+
 import { useCartStore } from "@/stores/useCartStore"; 
+
 import { formatCurrency } from "@/lib/formatter";
 import Button from "../Button";
 
 type CardFeaturedCarsProps = {
   id: number; 
+
   name: string;
   type: string;
   image: string;
   price: number;
-  onClick?: () => void;
   className?: string;
 };
 
 export default function CardFeaturedCars({
+
   id,
   name,
   type,
   image,
   price,
-  onClick,
   className = "",
 }: CardFeaturedCarsProps) {
   const { addItem, removeItem, items } = useCartStore();
@@ -43,6 +45,7 @@ export default function CardFeaturedCars({
           <p className="text-base-50">{type}</p>
           <p className="text-base-50 font-semibold">{formatCurrency(price)}</p>
         </div>
+
         <Button className="text-base-300 px-4 py-2 rounded-lg  hover:bg-base-300 hover:text-base-50 bg-base-50">
           Ver Detalhes
         </Button>
@@ -55,6 +58,7 @@ export default function CardFeaturedCars({
               +
             </Button>
         </div>
+
       </div>
     </div>
   );

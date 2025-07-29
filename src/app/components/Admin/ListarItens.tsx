@@ -14,8 +14,9 @@ export default function ListaCarros({ onAtualizarLista }: Props) {
     try {
       const lista = await listarCarros()
       setCarros(lista)
-    } catch {
-      alert('Erro ao carregar carros.')
+    } catch (error) { 
+      console.error("Erro ao carregar carros:", error); 
+      alert('Erro ao carregar carros.');
     }
   }
 
@@ -32,8 +33,9 @@ export default function ListaCarros({ onAtualizarLista }: Props) {
       alert('Carro deletado com sucesso!')
       carregarCarros()
       onAtualizarLista()
-    } catch {
-      alert('Erro ao deletar carro.')
+    } catch (error) { 
+      console.error("Erro ao deletar carro:", error); 
+      alert('Erro ao deletar carro.');
     }
   }
 
@@ -49,7 +51,11 @@ export default function ListaCarros({ onAtualizarLista }: Props) {
               <div>
                 <strong>{carro.modelo}</strong> - {carro.marca} - R$ {carro.preco.toFixed(2)} - Quantidade: {carro.quantidade}
               </div>
-              <img src={carro.foto} alt={carro.modelo} className="w-32 h-20 object-cover rounded mt-1 mb-1" />
+              <img
+                src={`http://localhost:5073${carro.foto}`} 
+                alt={carro.modelo}
+                className="w-32 h-20 object-cover rounded mt-1 mb-1"
+              />
               <button
                 onClick={() => deletar(carro.id)}
                 className="bg-red-600 text-white px-3 py-1 rounded"

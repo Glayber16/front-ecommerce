@@ -1,11 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavbarLogin from '../components/NavbarLogin';
 import FeaturedCars from '../components/FeaturedCars';
 import SearchBar from '../components/SearchBar';
 
 export default function Page() {
+   const [nome, setNome] = useState<string>("Usuário");
+  
+    useEffect(() => {
+      const nomeStorage = sessionStorage.getItem("usuario"); 
+     if (nomeStorage) {
+        try {
+          const usuario = JSON.parse(nomeStorage);
+          setNome(usuario.nome); 
+        } catch (e) {
+          console.error("Erro ao ler dados do usuário:", e);
+        }
+      }
+    }, []);
   return (
     <div className="min-h-screen bg-[#fffdff] font-poppins">
       <NavbarLogin />
@@ -14,7 +27,7 @@ export default function Page() {
         <SearchBar />
 
         <h1 className="text-xl sm:text-2xl font-semibold text-gray-800">
-          👋 Olá, <span className="font-bold">nome</span>, confira os destaques de hoje!
+          👋 Olá, <span className="font-bold">{nome}</span>, confira os destaques de hoje!
         </h1>
 
         <FeaturedCars />

@@ -6,8 +6,6 @@ import CardFeaturedCars from '../CardFeaturedCars';
 function FeaturedCars() {
   const [carsType, setCarsType] = useState<'featured' | 'popular' | 'new'>('featured');
 
-
-
   return (
     <section className="flex flex-col w-full text-center gap-6 mb-6" data-aos="fade-up">
       <div>
@@ -20,8 +18,10 @@ function FeaturedCars() {
       <div className="flex flex-wrap gap-6 w-full justify-center">
         {cars[carsType].map((car) => (
           <CardFeaturedCars
+
             key={car.id}   
             id={car.id}     
+
             name={car.name}
             type={car.type}
             image={car.image}
