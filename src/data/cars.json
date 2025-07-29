@@ -1,62 +1,80 @@
 {
   "featured": [
     {
+      "id": "1",
       "name": "Toyota Yaris",
       "type": "Hatch",
       "image": "/carImages/yarisHatch.png",
-      "price": 140000
+      "price": 140000,
+      "description": "Compacto, econômico e ideal para a cidade, o Toyota Yaris Hatch oferece conforto e eficiência no dia a dia."
     },
     {
+      "id": "2",
       "name": "Hyundai Palisade",
       "type": "SUV",
       "image": "/carImages/palisade.png",
-      "price": 600000
+      "price": 600000,
+      "description": "SUV premium com amplo espaço interno, tecnologia de ponta e excelente desempenho para toda a família."
     },
     {
+      "id": "3",
       "name": "Ford Ranger",
       "type": "Picape",
       "image": "/carImages/ranger.png",
-      "price": 500000
+      "price": 500000,
+      "description": "Robusta e versátil, a Ford Ranger é perfeita para o trabalho pesado ou aventuras fora de estrada com total confiança."
     }
   ],
   "popular": [
     {
+      "id": "4",
       "name": "Toyota Yaris",
       "type": "Hatch",
       "image": "/carImages/yarisHatch.png",
-      "price": 140000
+      "price": 140000,
+      "description": "Compacto, econômico e ideal para a cidade, o Toyota Yaris Hatch oferece conforto e eficiência no dia a dia."
     },
     {
+      "id": "5",
       "name": "Hyundai Palisade",
       "type": "SUV",
       "image": "/carImages/palisade.png",
-      "price": 600000
+      "price": 600000,
+      "description": "SUV premium com amplo espaço interno, tecnologia de ponta e excelente desempenho para toda a família."
     },
     {
+      "id": "6",
       "name": "Ford Ranger",
       "type": "Picape",
       "image": "/carImages/ranger.png",
-      "price": 500000
+      "price": 500000,
+      "description": "Robusta e versátil, a Ford Ranger é perfeita para o trabalho pesado ou aventuras fora de estrada com total confiança."
     }
   ],
   "new": [
     {
+      "id": "7",
       "name": "Toyota Yaris",
       "type": "Hatch",
       "image": "/carImages/yarisHatch.png",
-      "price": 140000
+      "price": 140000,
+      "description": "Compacto, econômico e ideal para a cidade, o Toyota Yaris Hatch oferece conforto e eficiência no dia a dia."
     },
     {
+      "id": "8",
       "name": "Hyundai Palisade",
       "type": "SUV",
       "image": "/carImages/palisade.png",
-      "price": 600000
+      "price": 600000,
+      "description": "SUV premium com amplo espaço interno, tecnologia de ponta e excelente desempenho para toda a família."
     },
     {
+      "id": "9",
       "name": "Ford Ranger",
       "type": "Picape",
       "image": "/carImages/ranger.png",
-      "price": 500000
+      "price": 500000,
+      "description": "Robusta e versátil, a Ford Ranger é perfeita para o trabalho pesado ou aventuras fora de estrada com total confiança."
     }
   ]
 }
