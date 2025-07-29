@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { useCartStore } from "@/stores/useCartStore";
 import NavbarLogin from "@/app/components/NavbarLogin";
 import { formatCurrency } from "@/lib/formatter";
-import Button from "@/app/components/Button"; 
+import Button from "@/app/components/Button";
+import api from "@/lib/api"; 
 
 type User = { id: number; nome: string };
 
@@ -30,16 +31,25 @@ export default function CarrinhoPage() {
     if (items.length === 0) return alert("Seu carrinho está vazio.");
 
     const payload = {
+      id: 0,
+      data: new Date().toISOString(),
       usuarioId: usuario.id,
-      itens: items.map(item => ({ carroId: item.id, quantidade: item.quantity })),
+      itens: items.map(item => ({
+        id: 0,
+        vendaId: 0,
+        carroId: item.id,
+        quantidade: item.quantity,
+        preco: item.price
+      }))
     };
 
     try {
-      await api.post("/vendas", payload);
+      await api.post("/Venda", payload);
       alert("Compra realizada com sucesso!");
       clearCart();
-      router.push("/meus-pedidos");
+      router.push("/HomeLoginCliente");
     } catch (error) {
+      console.error("Erro ao finalizar a compra:", error);
       alert("Houve um erro ao processar sua compra.");
     }
   };
