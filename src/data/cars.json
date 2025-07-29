@@ -1,18 +1,21 @@
 {
   "featured": [
     {
+      "id": 1,
       "name": "Toyota Yaris",
       "type": "Hatch",
       "image": "/carImages/yarisHatch.png",
       "price": 140000
     },
     {
+      "id": 2,
       "name": "Hyundai Palisade",
       "type": "SUV",
       "image": "/carImages/palisade.png",
       "price": 600000
     },
     {
+      "id": 3,
       "name": "Ford Ranger",
       "type": "Picape",
       "image": "/carImages/ranger.png",
@@ -21,18 +24,21 @@
   ],
   "popular": [
     {
+      "id": 1,
       "name": "Toyota Yaris",
       "type": "Hatch",
       "image": "/carImages/yarisHatch.png",
       "price": 140000
     },
     {
+      "id": 2,
       "name": "Hyundai Palisade",
       "type": "SUV",
       "image": "/carImages/palisade.png",
       "price": 600000
     },
     {
+      "id": 3,
       "name": "Ford Ranger",
       "type": "Picape",
       "image": "/carImages/ranger.png",
@@ -41,18 +47,21 @@
   ],
   "new": [
     {
+      "id": 1,
       "name": "Toyota Yaris",
       "type": "Hatch",
       "image": "/carImages/yarisHatch.png",
       "price": 140000
     },
     {
+      "id": 2,
       "name": "Hyundai Palisade",
       "type": "SUV",
       "image": "/carImages/palisade.png",
       "price": 600000
     },
     {
+      "id": 3,
       "name": "Ford Ranger",
       "type": "Picape",
       "image": "/carImages/ranger.png",
