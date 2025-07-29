@@ -1,7 +1,8 @@
 {
   "featured": [
     {
-      "id": "1",
+      "id": 1,
+
       "name": "Toyota Yaris",
       "type": "Hatch",
       "image": "/carImages/yarisHatch.png",
@@ -9,7 +10,8 @@
       "description": "Compacto, econômico e ideal para a cidade, o Toyota Yaris Hatch oferece conforto e eficiência no dia a dia."
     },
     {
-      "id": "2",
+      "id": 2,
+
       "name": "Hyundai Palisade",
       "type": "SUV",
       "image": "/carImages/palisade.png",
@@ -17,7 +19,8 @@
       "description": "SUV premium com amplo espaço interno, tecnologia de ponta e excelente desempenho para toda a família."
     },
     {
-      "id": "3",
+      "id": 3,
+
       "name": "Ford Ranger",
       "type": "Picape",
       "image": "/carImages/ranger.png",
@@ -27,7 +30,8 @@
   ],
   "popular": [
     {
-      "id": "4",
+      "id": 1,
+
       "name": "Toyota Yaris",
       "type": "Hatch",
       "image": "/carImages/yarisHatch.png",
@@ -35,7 +39,8 @@
       "description": "Compacto, econômico e ideal para a cidade, o Toyota Yaris Hatch oferece conforto e eficiência no dia a dia."
     },
     {
-      "id": "5",
+      "id": 2,
+
       "name": "Hyundai Palisade",
       "type": "SUV",
       "image": "/carImages/palisade.png",
@@ -43,7 +48,8 @@
       "description": "SUV premium com amplo espaço interno, tecnologia de ponta e excelente desempenho para toda a família."
     },
     {
-      "id": "6",
+      "id": 3,
+
       "name": "Ford Ranger",
       "type": "Picape",
       "image": "/carImages/ranger.png",
@@ -53,7 +59,8 @@
   ],
   "new": [
     {
-      "id": "7",
+      "id": 1,
+
       "name": "Toyota Yaris",
       "type": "Hatch",
       "image": "/carImages/yarisHatch.png",
@@ -61,7 +68,8 @@
       "description": "Compacto, econômico e ideal para a cidade, o Toyota Yaris Hatch oferece conforto e eficiência no dia a dia."
     },
     {
-      "id": "8",
+      "id": 2,
+
       "name": "Hyundai Palisade",
       "type": "SUV",
       "image": "/carImages/palisade.png",
@@ -69,7 +77,8 @@
       "description": "SUV premium com amplo espaço interno, tecnologia de ponta e excelente desempenho para toda a família."
     },
     {
-      "id": "9",
+      "id": 3,
+
       "name": "Ford Ranger",
       "type": "Picape",
       "image": "/carImages/ranger.png",

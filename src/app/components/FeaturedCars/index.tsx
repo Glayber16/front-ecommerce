@@ -15,29 +15,13 @@ function FeaturedCars() {
         </span>
       </div>
 
-      <div className="flex justify-center gap-4 text-xs sm:text-xl mb-4">
-        {['featured', 'popular', 'new'].map((key) => (
-          <div
-            key={key}
-            onClick={() => setCarsType(key as typeof carsType)}
-            className={`cursor-pointer px-4 py-2 rounded-md transition-colors ${
-              carsType === key
-                ? 'bg-brand-500 text-base-50'
-                : 'bg-base-50 text-base-600'
-            }`}
-          >
-            {key === 'featured' && 'Novos'}
-            {key === 'popular' && 'Mais Populares'}
-            {key === 'new' && 'Ofertas Especiais'}
-          </div>
-        ))}
-      </div>
-
       <div className="flex flex-wrap gap-6 w-full justify-center">
         {cars[carsType].map((car) => (
           <CardFeaturedCars
-            id={car.id}
-            key={car.id} 
+
+            key={car.id}   
+            id={car.id}     
+
             name={car.name}
             type={car.type}
             image={car.image}
@@ -45,6 +29,7 @@ function FeaturedCars() {
           />
         ))}
       </div>
+
     </section>
   );
 }
