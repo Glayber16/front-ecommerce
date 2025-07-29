@@ -10,11 +10,19 @@ export interface Carro {
   modelo: string;
   marca: string;
   preco: number;
-  foto: string;
+  foto: string; 
   quantidade: number;
   categoria: Categoria;
 }
 
+export interface CarroFormData {
+  modelo: string;
+  marca: string;
+  preco: number;
+  quantidade: number;
+  categoriaId: number;
+  fotoArquivo: File;
+}
 
 export const listarCarros = async (): Promise<Carro[]> => {
   const response = await api.get("/Carro");
@@ -26,12 +34,24 @@ export const buscarCarros = async (termo: string): Promise<Carro[]> => {
   return response.data;
 };
 
+export const cadastrarCarro = async (carro: CarroFormData) => {
+  const formData = new FormData();
 
-export const cadastrarCarro = async (carro: Carro) => {
-  const response = await api.post("/Carro", carro);
+  formData.append("modelo", carro.modelo);
+  formData.append("marca", carro.marca);
+  formData.append("preco", carro.preco.toString());
+  formData.append("quantidade", carro.quantidade.toString());
+  formData.append("categoriaId", carro.categoriaId.toString());
+  formData.append("fotoArquivo", carro.fotoArquivo);
+
+  const response = await api.post("/Carro", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
   return response.data;
 };
-
 
 export const atualizarCarro = async (carro: Carro) => {
   if (!carro.id) throw new Error("ID do carro é obrigatório para atualização");
@@ -39,7 +59,6 @@ export const atualizarCarro = async (carro: Carro) => {
   const response = await api.put(`/Carro/${carro.id}`, carro);
   return response.data;
 };
-
 
 export const deletarCarro = async (id: number) => {
   const response = await api.delete(`/Carro/${id}`);
